@@ -331,34 +331,34 @@ def registro_asignatura():
             name = request.form['nombre_asignatura']
             codigo = request.form['CodigoAsignatura']
             creditos = request.form['NumeroCreditos']
-            maxEstudiante = request.form['MaxEstudiante']
+            maxEstudiante = request.form['MaxEstudiantes']
             detalle= request.form['DetalleAsignatura']
 
             error = None
             db = gestorDB.get_db()
-            if not utils.isUsernameValid(name):
-                error = "El nombre debe ser alfanumerico o incluir solo '.','_','-'"
-                flash( error )
-                return render_template( 'crearAsignatura.html' )
+            # if not utils.isUsernameValid(name):
+            #     error = "El nombre debe ser alfanumerico o incluir solo '.','_','-'"
+            #     flash( error )
+            #     return render_template( 'crearAsignatura.html' )
 
             
-            if not detalle:
-                error = 'Debes ingresar una descripción'
-                flash( error )
-                return render_template( 'crearAsignatura.html' )
+            # if not detalle:
+            #     error = 'Debes ingresar una descripción'
+            #     flash( error )
+            #     return render_template( 'crearAsignatura.html' )
 
 
             # if db.execute( 'SELECT codigo FROM asignatura WHERE codigo = ?', (codigo) ).fetchone() is not None:
             #     error = 'El codigo ya existe'.format( codigo )
             #     flash( error )
-
-                return render_template( 'auth/crearAsignatura.html' )
+               # return render_template( 'auth/crearAsignatura.html' )
             print(error)
-            strsql = "insert into asignatura (codigo, nombre, creditos,detalle) values("+codigo+", '"+name+"', "+creditos+", '"+detalle+"' )"
-            db.execute(strsql)
-            db.commit()
 
-            flash( 'Asignatura creada' )
+
+            db.execute('INSERT INTO asignatura (codigo, nombre, creditos,maxEstudiante,detalle)  VALUES(?,?,?,?,?) ', (int(codigo),name,int(creditos),int(maxEstudiante),detalle))
+            db.commit()
+            flash('Asignatura creada')
+            
             return render_template( 'crearAsignatura.html' )
         return render_template( 'crearAsignatura.html' )
     except:

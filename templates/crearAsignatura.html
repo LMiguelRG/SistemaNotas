@@ -88,7 +88,7 @@
                       
                         <center><h4><br/>Complete todos los campos para crear la asignatura</h4> </center>
                      
-                        <form action="{{ url_for('registro_asignatura')}}"method="post" name="CrearAsignatura"  class="formulario">  
+                        <form action="{{ url_for('registro_asignatura')}}"  method="post" name="CrearAsignatura"  class="formulario">  
                         <div class="contenedor-campo">
                         <div class="campo">
                             <label> Nombre del la asignatura </label>
@@ -129,6 +129,17 @@
                         </div>
 
                         <div class="campo">
+                          <label> Numero maximo de alumnos </label>
+                          <input
+                          type="number"   
+                          name="MaxEstudiantes"
+                          id="MaxEstudiantes"
+                          required
+                          placeholder="Numero maximo de estudiante"
+                          />
+                      </div>
+
+                        <div class="campo">
                             <label> Detalle de la asignatura </label>
                             <textarea class="input-text" name="DetalleAsignatura"                             
                             id="DetalleAsignatura"
@@ -140,17 +151,19 @@
                         <center>
                             <button class="btn-primary" type="submit">Crear usuario</button>
                             <button class="btn-primary" type="reset">Cancelar</button>
+
+                            
+                            {%with messages = get_flashed_messages() %}
+                            {% if messages%}
+                            {% for message in messages %}
+                            <p>
+                              {{message}}
+                            </p>
+                            {% endfor%}
+                            {% endif%}
+                            {% endwith%}
                         </center>
 
-                        {%with messages = get_flashed_messages() %}
-                        {% if messages%}
-                        {% for message in messages %}
-                        <p>
-                          {{message}}
-                        </p>
-                        {% endfor%}
-                        {% endif%}
-                        {% endwith%}
                         
                         </div>
                         </div>
